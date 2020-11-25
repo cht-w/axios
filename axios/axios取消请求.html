@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <button onclick="get()">发送get请求</button>
+    <button onclick="cancelRequest()">取消请求</button>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.js"></script>
+    <script>
+        let cancel; // 保存 取消请求的函数
+        function get() {
+            axios.get("http://localhost:3000/posts" , {
+                cancelToken : new axios.CancelToken((c)=> {  // c 是 一个函数
+                    cancel = c ; 
+                })
+            }).then(res=> {
+                cancel = null;
+                console.log("请求成功了" , res.data);
+            }).catch(err => {
+                cancel = null;
+                console.log("请求失败了" , err);
+            })
+        }
+        
+        function cancelRequest() {
+            if(typeof cancel === "function") {
+                cancel("强制取消请求");
+            }else {
+                console.log("没法执行取消操作");
+            }
+        }
+
+    </script>
+</body>
+</html>

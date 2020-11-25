@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="get()">get请求测试拦截器</button>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.js"></script>
+    <script>
+        axios.interceptors.request.use(config=> {
+            console.log( "request interceptors1");
+            return config;
+        } , err=> {
+            return Promise.reject(err);
+        })
+        axios.interceptors.request.use(config=> {
+            console.log(" resuest interceptors2");
+            return config;
+        } , err=> {
+            return Promise.reject(err);
+        })
+        
+        axios.interceptors.response.use(response=> {
+            console.log("response  interceptors1");
+            return response;
+        },err=> {
+            return Promise.reject(err);return 
+        })
+        
+        axios.interceptors.response.use(response=> {
+            console.log("response  interceptors2");
+            return response;
+        },err=> {
+            return Promise.reject(err);return 
+        })
+        
+        
+        function get() {
+            axios.get("http://localhost:3000/posts").then(res=> {
+                console.log(res.data);
+            }).catch(err=> {
+                console.log(err);
+            })
+        }
+        /**
+         * resuest interceptors2
+           request interceptors1
+           response  interceptors1
+           response  interceptors2
+         * 
+         * **/
+    </script>
+</body>
+</html>

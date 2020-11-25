@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>json-server测试</title>
+</head>
+<body>
+    <button onclick="jsonTest()">测试json-server--get</button>
+    <button onclick="jsonTest1()">测试json-server筛选--get</button>
+    <button onclick="josnTest2()">测试json-server--post</button>
+    <button onclick="jsonTest3()">测试json-server筛选--post</button>
+    <button onclick="postTest()">post测试</button>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.js"></script>
+    <script>
+        function jsonTest() {
+            axios.get('http://localhost:3000/posts').then(res=> {
+                console.log(res);
+            })
+        }
+        function jsonTest1() {
+            axios.get('http://localhost:3000/posts?id=1').then(res=> {
+                console.log(res);
+            })
+        }
+        function josnTest2() {
+            axios.post('http://localhost:3000/posts', {"title":"cht" , "author":"cht"}).then(res=> {
+                console.log(res.data)
+            })
+        }
+        function jsonTest3() {
+            axios.post("http://localhost:3000/posts'").then(res=> {
+                console.log(res)
+            })
+        }
+        function postTest() {
+            axios.post('http://localhost:3000/posts' , {
+                title:"this",
+                author:"dddddd"
+            }).then(res=> {
+                console.log(res.data);
+            })
+        }
+    </script>
+</body>
+</html>

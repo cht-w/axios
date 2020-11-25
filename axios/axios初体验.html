@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>json-server测试</title>
+</head>
+<body>
+    <button onclick="jsonTest1()">测试json-server--get</button>
+    <button onclick="jsonTest2()">测试json-server--post</button>
+ 
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.js"></script>
+    <script>
+        axios.defaults.baseURL = "http://localhost:3000"
+        function jsonTest1() {
+            // axios.get('/posts')
+            axios({
+                url:"/posts",
+                method:"get",
+                params:{
+                    id:1
+                }
+            })
+            .then(res=> {
+                console.log(res);
+            })
+        }
+        function jsonTest2() {
+            // axios.post('/posts',{"title":"cccc","author":"cht"})
+            axios({
+                url:"/posts",
+                method:"post",
+                data:{"title":"1111","author":"ch22t"}
+            }).then(res=> {
+                console.log(res.data);
+            })
+               
+        }
+    </script>
+</body>
+</html>
